@@ -507,7 +507,9 @@ class Epub:
             self._extracted_files.remove(xf)
 
     def compact(self) -> None:
+        print(f"Output: {self._output}")
         for xf in self._extracted_files:
+            print(f"{xf.full_path} -> {xf.name}")
             self._output.write(xf.full_path, xf.name)
 
     def drm_files(self) -> List[Extracted]:
@@ -600,7 +602,9 @@ if __name__ == '__main__':
                 decoded = ubook.decode_ebook_file(code, co.full_path)
                 print(f'Decoded: {decoded}')
                 print(f'Writing: {f}')
-                outter = open('/tmp/_ebooks' + f.split('/')[-1], 'xb')
+                #outter = open('/tmp/_ebooks' + f.split('/')[-1], 'xb')
+                outter = open(co.full_path, "wb")
+                print(outter)
                 #print(decoded.read())
                 #print(ubook.decode_ebook_file(code, './_more_test/OEBPS/Text/advertencia.xhtml').read())
                 for data in decoded.buffered_read(buf):
