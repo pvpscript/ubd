@@ -445,9 +445,8 @@ class Epub:
 
     def _build_not_essential_meta_file_regex(self) -> re.Pattern:
         essentials = ['container.xml', 'manifest.xml', 'metadata.xml']
-        return re.compile('META-INF/.+'
-                          f"{''.join([f'(?<!{e})' for e in essentials])}"
-                          '$')
+        to_replace = ''.join([f'(?<!{e})' for e in essentials])
+        return re.compile(f'META-INF/.+{to_replace}$')
 
     def _build_is_content_file_regex(self) -> re.Pattern:
         return re.compile(f'OEBPS/.*\.(x?)html')
